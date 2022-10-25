@@ -59,13 +59,13 @@ class Student:
             return
         return self.avarage_score() < other.avarage_score()
 
-    # Задание №3. Метод посчета средней оценки за лекции.
+# Задание №3. Метод посчета средней оценки за лекции.
     def avarage_score(self):
         val = self.grades.values()
         avarage = sum(sum(val, [])) / len(sum(val, []))
         return avarage
 
-        # Задание №3. Лекторы + средняя оценка за лекции
+# 
 
     def __str__(self):
         name_surname_grade = f'Имя: {self.name}' \
@@ -73,8 +73,8 @@ class Student:
                              f'\nСредняя оценка за лекции: {round(self.avarage_score(), 1)}'
         return name_surname_grade
 
-    # Задание 3.2. Реализуйте возможность сравнивать (через операторы сравнения) между собой лекторов
-    # по средней оценке за лекции и студентов по средней оценке за домашние задания.
+# Задание 3.2. Реализуйте возможность сравнивать (через операторы сравнения) между собой лекторов
+    
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
             print('Сравнение возможно только лектора с лектором.')
@@ -84,7 +84,7 @@ class Student:
 
 
 
-    # Задание 2
+    # 
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
             if course in student.grades:
@@ -94,7 +94,7 @@ class Student:
         else:
             return 'Ошибка'
 
-    # Задание №3. 
+#  
     def __str__(self):
         name_surname = f'Имя: {self.name}\nФамилия: {self.surname}'
         return name_surname
