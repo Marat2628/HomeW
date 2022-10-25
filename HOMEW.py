@@ -1,20 +1,3 @@
-
-class Mentor:
-    def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
-        self.courses_attached = []
-
-class Reviewer(Mentor):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
-
-class Lecturer(Mentor):
-    def __init__(self, name, surname):
-        super().__init__(name, surname)
-        self.grades = {}
-
-#
 class Student:
     def __init__(self, name, surname, gender):
         self.name = name
@@ -27,7 +10,7 @@ class Student:
     def add_courses(self, course_name):
         self.finished_courses.append(course_name)
 
-
+    #  Реализуйте метод выставления оценок лекторам у класса Student.
     def rate_lecturer(self, lecturer, course, grade):
         if isinstance(lecturer,
                       Lecturer) and course in self.courses_in_progress and course in lecturer.courses_attached:
@@ -38,13 +21,13 @@ class Student:
         else:
             return 'Ошибка'
 
-
+    # Задание №3. Метод посчета средней оценки за дз.
     def avarage_score(self):
         val = self.grades.values()
         avarage = sum(sum(val, [])) / len(sum(val, []))
         return avarage
 
-    
+    # 
     def __str__(self):
         name_surname_grade = f'Имя: {self.name}\nФамилия: {self.surname}' \
                              f"\nСредняя оценка за домашние задания: {round(self.avarage_score(), 1)}" \
@@ -52,20 +35,35 @@ class Student:
                              f"\nЗавершенные курсы:{''.join(self.finished_courses)}"
         return name_surname_grade
 
-   
+    # Задание 3.2 Реализуйте возможность сравнивать (через операторы сравнения) между собой лекторов
+    
     def __lt__(self, other):
         if not isinstance(other, Student):
             print('Сравнение возможно только студента со студентом.')
             return
         return self.avarage_score() < other.avarage_score()
 
-# Задание №3. Метод посчета средней оценки за лекции.
+
+class Mentor:
+    def __init__(self, name, surname):
+        self.name = name
+        self.surname = surname
+        self.courses_attached = []
+
+
+# Задание №1.
+class Lecturer(Mentor):
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
+        self.grades = {}
+
+# Метод посчета средней оценки за лекции.
     def avarage_score(self):
         val = self.grades.values()
         avarage = sum(sum(val, [])) / len(sum(val, []))
         return avarage
 
-# 
+#
 
     def __str__(self):
         name_surname_grade = f'Имя: {self.name}' \
@@ -73,8 +71,8 @@ class Student:
                              f'\nСредняя оценка за лекции: {round(self.avarage_score(), 1)}'
         return name_surname_grade
 
-# Задание 3.2. Реализуйте возможность сравнивать (через операторы сравнения) между собой лекторов
-    
+    # Задание 3.2. Реализуйте возможность сравнивать (через операторы сравнения) между собой лекторов
+    # по средней оценке за лекции и студентов по средней оценке за домашние задания.
     def __lt__(self, other):
         if not isinstance(other, Lecturer):
             print('Сравнение возможно только лектора с лектором.')
@@ -82,9 +80,13 @@ class Student:
         return self.avarage_score() < other.avarage_score()
 
 
+# 
+class Reviewer(Mentor):
+    def __init__(self, name, surname):
+        super().__init__(name, surname)
 
-
-    # 
+#
+    
     def rate_hw(self, student, course, grade):
         if isinstance(student, Student) and course in self.courses_attached and course in student.courses_in_progress:
             if course in student.grades:
@@ -94,7 +96,7 @@ class Student:
         else:
             return 'Ошибка'
 
-#  
+# 
     def __str__(self):
         name_surname = f'Имя: {self.name}\nФамилия: {self.surname}'
         return name_surname
@@ -135,7 +137,6 @@ reviewer_2.rate_hw(student_1, 'Django', 3)
 reviewer_2.rate_hw(student_2, 'JS', 8)
 reviewer_2.rate_hw(student_2, 'Django', 7.6)
 
-# 
 
 student_list = [student_1, student_2]
 
